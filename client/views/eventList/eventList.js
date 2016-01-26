@@ -22,5 +22,14 @@ Template['eventList'].events({
     event.preventDefault();
     var eventOb = this;
     Router.go('event',{_id: eventOb._id})
+  },
+  "click #download-csv": function(event) {
+      var nameFile = 'events.csv';
+      Meteor.call('download_events', function(err, fileContent) {
+        if(fileContent){
+          var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
+          saveAs(blob, nameFile);
+        }
+      });
   }
 });
