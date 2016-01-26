@@ -180,6 +180,8 @@ Groups.userDistance = function(userA, userB) {
 
     distance += (userA.profile.gender === userB.profile.gender) ? 0 : 30;
 
+    distance += (userA.profile.nationality === userB.profile.nationality) ? 0 : 30;
+
     if (userA.profile.gradYear && userB.profile.gradYear) {
         distance += Math.abs(userA.profile.gradYear - userB.profile.gradYear) * 5;
     }
