@@ -5,7 +5,7 @@ Template.home.helpers({
     });
   },
   futureEvents: function(){
-    return Events.find({});
+    return Events.find({},{limit: 3});
   },
   hasRegisteredEvents: function(){
     return Events.find({

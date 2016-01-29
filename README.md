@@ -122,12 +122,14 @@ meteor-boilerplate		# Command line tool
 
 ### Dev
 Dev hosting is done locally using the (meteor commandline tool)[https://www.meteor.com/tool]. To run the app locally:
+
 1. `$ cd klick`
 2. `$ meteor`
 3. Go to (localhost:3000)[http://localhost:3000/]
 
 ### Staging
 Staging is done using meteor's cloud hosting. The staging env uses its own database and does not mirror prod. To deploy to staging:
+
 1. Get access to the staging domain from Nikhil
 2. `$ cd klick`
 3. `$ meteor deploy klick`
@@ -135,6 +137,7 @@ Staging is done using meteor's cloud hosting. The staging env uses its own datab
 
 ### Prod
 The production server is hosted by (Modulus)[https://modulus.io/]. You must have the (modulus CLI tools)[http://help.modulus.io/customer/en_us/portal/articles/1701977-modulus-command-line] installed to deploy. To deploy:
+
 1. Get access to the staging domain from Nikhil
 2. `$ cd klick`
 3. `$ modulus deploy`

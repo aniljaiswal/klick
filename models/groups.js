@@ -26,21 +26,38 @@ Groups.removeFromGroup = function(groups, user, groupLimit) {
     return groups;
 }
 
-Groups.addToRandomGroup = function(users, groupLimit) {
+Groups.addToRandomGroup = function(users, groupLimit,hosts) {
     return Groups.shuffleIntoGroups(users, groupLimit);
 }
 
-Groups.removeFromRandomGroup = function(users, groupLimit) {
-    return Groups.shuffleIntoGroups(users, groupLimit);
+Groups.removeFromRandomGroup = function(users, groupLimit,hosts) {
+    return Groups.shuffleIntoGroups(users, groupLimit,hosts);
 }
 
 //User IDS
-Groups.shuffleIntoGroups = function(users, groupLimit){
+Groups.shuffleIntoGroups = function(users, groupLimit, hosts){
+    console.log(hosts)
     var numGroups = Math.ceil(users.length/groupLimit);
     var users = Meteor.users.find({_id: {$in: users}}).fetch();
+    var hosts = Meteor.users.find({_id: {$in: hosts}}).fetch();
     var dM = generateDMatrix(users);
     var groups = new Array(numGroups);
     users = shuffleArray(users);
+
+    if(hosts) {
+        // seed using hosts if there are hosts
+        hosts.splice(numGroups,hosts.length - numGroups);
+
+        users = users.filter(function(user) {
+            return hosts.indexOf(user._id) === -1;
+        });
+
+        for (var i = hosts.length - 1; i >= 0; i--) {
+            var host = hosts[i];
+            groups[i] = [host];
+        };
+
+    } 
 
     for(var i = 0; i < users.length; i++){
         var user = users[i];
@@ -163,9 +180,9 @@ Groups.userDistance = function(userA, userB) {
     if (userA._id === userB._id) return 0;
     if(!userA.profile || !userB.profile) return 100;
 
-    console.log('\n====================================\n\nComparing:')
-    console.log(userA.profile)
-    console.log(userB.profile)
+    // console.log('\n====================================\n\nComparing:')
+    // console.log(userA.profile)
+    // console.log(userB.profile)
     var distance = 0;
 
     distance += (userA.profile.kwesttrip === userB.profile.kwesttrip) ? 0 : 100;
@@ -180,14 +197,14 @@ Groups.userDistance = function(userA, userB) {
 
     distance += (userA.profile.gender === userB.profile.gender) ? 0 : 30;
 
-    distance += (userA.profile.nationality === userB.profile.nationality) ? 0 : 30;
+    distance += (userA.profile.nationality === userB.profile.nationality) ? 0 : 50;
 
     if (userA.profile.gradYear && userB.profile.gradYear) {
         distance += Math.abs(userA.profile.gradYear - userB.profile.gradYear) * 5;
     }
 
-    console.log('\nDistance: ' + distance);
-    console.log('\n====================================\n')
+    // console.log('\nDistance: ' + distance);
+    // console.log('\n====================================\n')
     return distance;
 }
 

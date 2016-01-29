@@ -138,7 +138,22 @@ Schemas.Events = new SimpleSchema({
                 type: "bootstrap-datetimepicker"
             }
         }
-    }
+    },
+    isHosted: {
+        type: Boolean,
+        label: "Community Hosted",
+        defaultValue: false,
+        optional: true,
+    },
+    hosts: {
+        type: [String],
+        label: 'Community Hosts',
+        optional: true,
+        autoform: {
+            omit: true
+        },
+        defaultValue: []
+    },
 });
 
 Events.attachSchema(Schemas.Events);
@@ -168,6 +183,7 @@ if (Meteor.isServer) {
         var no_shuffle = doc.manualSort || is_in_release_frame;
         var should_shuffle = false;
         var group_size = doc.groupLimit;
+        var hosts = doc.hosts || null;
 
         // Adding new user to event
         if(modifier.$addToSet && modifier.$addToSet.users){
@@ -198,13 +214,19 @@ if (Meteor.isServer) {
             should_shuffle = true;
         }
 
+         // Changed hosts
+        if(modifier.$set && modifier.$set.hosts && !doc.manualSort){
+            hosts = modifier.$set.hosts
+            should_shuffle = true;
+        }
+
         // Changed from manual to auto grouping
         if(modifier.$set && modifier.$set.manualSort === false && doc.manualSort){
             should_shuffle = true;
         }
 
         if (should_shuffle) {
-            new_groups = Groups.shuffleIntoGroups(users, doc.groupLimit)
+            new_groups = Groups.shuffleIntoGroups(users, doc.groupLimit, hosts)
         }
         console.log(modifier)
         if (!modifier.$set) modifier.$set = {}

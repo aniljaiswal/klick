@@ -44,7 +44,7 @@ Template['arrangeGroups'].events({
     }
   },
   'click #shuffle-group': function(event, template){
-    var new_groups = Groups.shuffleIntoGroups(this.users, this.groupLimit)
+    var new_groups = Groups.shuffleIntoGroups(this.users, this.groupLimit, this.hosts)
     Events.update(this._id, {$set: {groups: new_groups}});
     Session.set('new_groups',new_groups);
     Router.go('eventEdit', this);
