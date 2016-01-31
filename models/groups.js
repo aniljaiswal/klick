@@ -36,10 +36,8 @@ Groups.removeFromRandomGroup = function(users, groupLimit,hosts) {
 
 //User IDS
 Groups.shuffleIntoGroups = function(users, groupLimit, hosts){
-    console.log(hosts)
     var numGroups = Math.ceil(users.length/groupLimit);
     var users = Meteor.users.find({_id: {$in: users}}).fetch();
-    var hosts = Meteor.users.find({_id: {$in: hosts}}).fetch();
     var dM = generateDMatrix(users);
     var groups = new Array(numGroups);
     users = shuffleArray(users);
@@ -51,6 +49,8 @@ Groups.shuffleIntoGroups = function(users, groupLimit, hosts){
         users = users.filter(function(user) {
             return hosts.indexOf(user._id) === -1;
         });
+
+        hosts = Meteor.users.find({_id: {$in: hosts}}).fetch();
 
         for (var i = hosts.length - 1; i >= 0; i--) {
             var host = hosts[i];

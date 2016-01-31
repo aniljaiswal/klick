@@ -62,6 +62,10 @@ Template['event'].helpers({
 
   isFull: function(){
     return this.eventData.users.length === this.eventData.eventLimit;
+  },
+
+  isHost: function(){
+    return this.eventData.hosts && this.eventData.hosts.indexOf(Meteor.userId()) !== -1;
   }
   
 });
@@ -83,6 +87,16 @@ Template['event'].events({
     });
     Meteor.users.update({_id:Meteor.user()._id}, {$addToSet: {canceledEvents: this.eventData._id}});
   },
+  'click #can_host': function(){
+    Events.update(this.eventData._id,{
+      $addToSet: {hosts: Meteor.userId()},
+    });
+  },
+  'click #cant_host': function(){
+    Events.update(this.eventData._id,{
+      $pull: {hosts: Meteor.userId()},
+    });
+  }
 });
 
 Template['event'].onRendered(function(){

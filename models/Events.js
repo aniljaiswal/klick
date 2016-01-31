@@ -215,8 +215,8 @@ if (Meteor.isServer) {
         }
 
          // Changed hosts
-        if(modifier.$set && modifier.$set.hosts && !doc.manualSort){
-            hosts = modifier.$set.hosts
+        if((modifier.$set && modifier.$set.hosts) || (modifier.$addToSet && modifier.$addToSet.hosts) || (modifier.$pull && modifier.$pull.hosts) && !doc.manualSort){
+            hosts = this.transform().hosts
             should_shuffle = true;
         }
 
@@ -228,10 +228,10 @@ if (Meteor.isServer) {
         if (should_shuffle) {
             new_groups = Groups.shuffleIntoGroups(users, doc.groupLimit, hosts)
         }
-        console.log(modifier)
+
         if (!modifier.$set) modifier.$set = {}
         if (new_groups) _.extend(modifier.$set,{groups: new_groups});
-        console.log(modifier)
+
     });
 
     Events.after.insert(function (userId, doc){
@@ -245,7 +245,7 @@ if (Meteor.isServer) {
     })
 
     Events.after.update(function (userId, doc, fieldNames, modifier, options) {
-        var invited = Meteor.users.find({_id: {$in: doc.users}}).fetch();
+        var invited = Meteor.users.find({_id: {$in: doc.users || []}}).fetch();
         var invited = invited.map(function(user){
             return { 
                 email: user.emails[0].address,

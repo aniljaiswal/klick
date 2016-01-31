@@ -19,6 +19,15 @@
           {{eventData.description}}
         </p>
         {{/if}}
+        {{#if isRegistered}}
+          {{#if eventData.isHosted}}
+              <h6>Would you be willing to host?</h6>
+              <div class="btn-group" role="group">
+                <button id="can_host" type="button" class="btn btn-primary {{#if isHost}}active{{/if}}">Yes</button>
+                <button id="cant_host" type="button" class="btn btn-primary {{#unless isHost}}active{{/unless}}">No</button>
+              </div>
+          {{/if}}
+        {{/if}}
       </div>
       {{#if isRegistered}}
         {{#if viewable}}
