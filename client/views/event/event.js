@@ -66,6 +66,26 @@ Template['event'].helpers({
 
   isHost: function(){
     return this.eventData.hosts && this.eventData.hosts.indexOf(Meteor.userId()) !== -1;
+  },
+
+  host_name: function() {
+    var group = [];
+    var groups = this.eventData.groups;
+    if (groups) {
+      for (var i = groups.length - 1;i >= 0; i--) {
+        var usersIndex = groups[i].indexOf(Meteor.userId());
+        if(usersIndex !== -1){
+          group = groups[i];
+          group.splice(usersIndex,1);
+          break;
+        }
+      };
+    }
+    var that = this;
+    var host = group.filter(function(id){
+      return that.eventData.hosts.indexOf(id) !== -1;
+    })
+    return Meteor.users.findOne({_id: host[0]});
   }
   
 });

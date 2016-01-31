@@ -32,6 +32,9 @@
       {{#if isRegistered}}
         {{#if viewable}}
           <div class="row row-centered">
+            {{#if eventData.isHosted}}
+              <h4>Your host is: {{host_name.profile.firstName}} {{host_name.profile.lastName}}</h4>
+            {{/if}}
             <p class="lead">You will be meeting:</p>
             {{#each group}}
             <div {{groupAttr ..}}>
