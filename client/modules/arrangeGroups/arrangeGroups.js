@@ -20,6 +20,16 @@ Template['arrangeGroups'].helpers({
     var num = Session.get(tableID.toString());
     return Math.ceil(num)
   },
+
+  is_host: function(_id, hosts) {
+    return hosts && hosts.indexOf(_id) !== -1;
+  },
+
+  group_emails: function(group) {
+    return group.people.map(function(user){
+      return user.emails[0].address;
+    })
+  }
 });
 
 Template['arrangeGroups'].events({

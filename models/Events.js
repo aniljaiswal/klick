@@ -183,7 +183,7 @@ if (Meteor.isServer) {
         var no_shuffle = doc.manualSort || is_in_release_frame;
         var should_shuffle = false;
         var group_size = doc.groupLimit;
-        var hosts = doc.hosts || null;
+        var hosts = doc.isHosted ? (doc.hosts || null) : null;
 
         // Adding new user to event
         if(modifier.$addToSet && modifier.$addToSet.users){

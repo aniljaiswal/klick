@@ -16,12 +16,14 @@
       <div class="list-group-item disabled">
         <b>Group {{id}}</b>
         Randomness: {{randomnessScore id}}
+        <a href="mailto:{{group_emails this}}" class="btn btn-primary">Email group</a>
       </div>
       <div class="sortable-table" data-table-id="{{id}}">
       {{#each people}}
         <div class="list-group-item people" data-user-id="{{_id}}">
           <a href="{{pathFor route='user' data=this}}">
             {{this.profile.firstName}} {{this.profile.lastName}}
+            {{#if is_host _id ../../hosts}} (host) {{/if}}
           </a>
         </div>
       {{/each}}
