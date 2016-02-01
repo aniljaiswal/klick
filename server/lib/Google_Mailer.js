@@ -1,7 +1,7 @@
 Google_Mailer = {};
 
 Google_Mailer.creat_event = function (event_data) {
-    var link_text = "\n\nFind you who you are meeting at http://klick.meteor.com/events/" + event_data._id; 
+    var link_text = "\n\nFind you who you are meeting at http://www.klicktogether.com//events/" + event_data._id; 
     var config = Settings.findOne({});
     var calendar_owner = Meteor.users.findOne(config.calendarOwner);
     if(calendar_owner){
@@ -35,7 +35,7 @@ Google_Mailer.creat_event = function (event_data) {
 }
 
 Google_Mailer.update_event = function(event_data) {
-    var link_text = "\n\nFind you who you are meeting at http://klick.meteor.com/events/" + event_data._id; 
+    var link_text = "\n\nFind you who you are meeting at http://www.klicktogether.com//events/" + event_data._id; 
     var config = Settings.findOne({});
     var calendar_owner = Meteor.users.findOne(config.calendarOwner);
     if(calendar_owner && event_data.gcalId){
