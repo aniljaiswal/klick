@@ -254,7 +254,8 @@ if (Meteor.isServer) {
         });
 
         if (doc.date.valueOf() !== this.previous.date.valueOf() || 
-            doc.location.street !== this.previous.location.street) {
+            doc.location.street !== this.previous.location.street ||
+            doc.users !== this.previous.users) {
 
             Google_Mailer.update_event({
                 _id: doc._id,
