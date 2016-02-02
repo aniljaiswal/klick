@@ -253,15 +253,21 @@ if (Meteor.isServer) {
             }
         });
 
-        Google_Mailer.update_event({
-            _id: doc._id,
-            date: doc.date,
-            title: doc.title,
-            description: doc.description,
-            location: doc.location,
-            invited: invited,
-            gcalId: doc.gcalId
-        });
+        if (doc.date.valueOf() !== this.previous.date.valueOf() || 
+            doc.location.street !== this.previous.location.street) {
+
+            Google_Mailer.update_event({
+                _id: doc._id,
+                date: doc.date,
+                title: doc.title,
+                description: doc.description,
+                location: doc.location,
+                invited: invited,
+                gcalId: doc.gcalId
+            });
+        }
+
+        
     });
 
     Events.after.remove(function (userId, doc){
