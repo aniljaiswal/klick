@@ -54,7 +54,7 @@ function loadEvent(event,i) {
 function cleanUserNames() {
   Meteor.users.find({}).forEach(function(user){
     
-    if (user.username && user.emails[0]) {
+    if (user.username && user.emails[0] && Meteor.users.find({username: user.username.toLowerCase()}).count() === 0) {
       Meteor.users.update({_id: user._id, "emails.address": user.emails[0].address}, 
         {
           $set: {
