@@ -51,8 +51,24 @@ function loadEvent(event,i) {
   }
 }
 
+function cleanUserNames() {
+  Meteor.users.find({}).forEach(function(user){
+    
+    if (user.username && user.emails[0]) {
+      Meteor.users.update({_id: user._id, "emails.address": user.emails[0].address}, 
+        {
+          $set: {
+            username: user.username.toLowerCase(),
+            "emails.$.address" : user.emails[0].address.toLowerCase()
+          }
+        });  
+    }
+
+  })
+}
+
 Meteor.startup(function () {
-  
+  cleanUserNames()
   var settings = YAML.eval(Assets.getText('settings.yml'));
   var areas = YAML.eval(Assets.getText('areas.yml'));
   var events = YAML.eval(Assets.getText('events.yml'));

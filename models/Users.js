@@ -192,12 +192,12 @@ if (Meteor.isServer) {
     Accounts.onCreateUser(function(options, user) {
         user.emails = user.emails || []
         user.profile = options.profile || {};
-        user.username = options.email;
+        user.username = options.email.toLowerCase();
 
         if (user.services && user.services.google && user.services.google.accessToken) {
             user.profile.firstName = user.services.google.given_name;
             user.profile.lastName = user.services.google.family_name;
-            user.username = user.services.google.email;
+            user.username = user.services.google.email.toLowerCase();
             user.emails.push({address: user.services.google.email, verified: false});
             user.profile.netid = 'abc123';
         }

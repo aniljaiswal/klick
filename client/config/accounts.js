@@ -1,4 +1,6 @@
 Accounts.ui.config({
+    forceEmailLowercase: true,
+    forceUsernameLowercase: true,
     extraSignupFields: [
         {
             fieldName: 'firstName',

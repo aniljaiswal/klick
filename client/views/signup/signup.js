@@ -9,28 +9,6 @@ Template['signup'].helpers({
 
 Template['signup'].events({
 
-  'submit #register-form' : function(e, t) {
-
-
-    Accounts.createUser({
-      email: email, 
-      password : password,
-      profile: {
-        firstName: firstName,
-        lastName: lastName
-      }
-    }, function(err){
-      if (err) {
-        console.log(err)
-        if (err.reason === 'Username already exists.') err.reason = 'Email address already in use'
-        Session.set('error',err.reason)
-      } else {
-        Router.go('userEdit', {_id: Meteor.userId})
-      }
-    });
-
-    return false;
-  }
 });
 
 
@@ -40,7 +18,7 @@ AutoForm.addHooks('insertUserForm', {
     this.event.preventDefault()
     var that = this;
     Accounts.createUser({
-      email: insertDoc.email, 
+      email: insertDoc.email.toLowerCase(), 
       password : insertDoc.password,
       profile: {
         firstName: insertDoc.firstName,
