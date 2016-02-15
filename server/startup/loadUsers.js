@@ -68,7 +68,7 @@ function cleanUserNames() {
 }
 
 Meteor.startup(function () {
-  cleanUserNames()
+  //cleanUserNames()
   var settings = YAML.eval(Assets.getText('settings.yml'));
   var areas = YAML.eval(Assets.getText('areas.yml'));
   var events = YAML.eval(Assets.getText('events.yml'));

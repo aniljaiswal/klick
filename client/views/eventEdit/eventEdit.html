@@ -2,8 +2,11 @@
    <div class="container">
     <div class="row">
       <div class="col-md-6">
-        {{> quickForm schema=form_schema collection="Events" doc=this id="updateEventForm" type="update"}}
-        {{> quickRemoveButton collection="Events" _id=this._id class="btn btn-danger"}}
+        <div class="row"><button id="download-csv" class="btn btn-primary pull-right">Download CSV Of Users</button></div>
+        <div class="row">
+          {{> quickForm schema=form_schema collection="Events" doc=this id="updateEventForm" type="update"}}
+          {{> quickRemoveButton collection="Events" _id=this._id class="btn btn-danger"}}
+        </div>
       </div>
       <div class="col-md-6">
         {{> arrangeGroups}}

@@ -147,6 +147,15 @@ Template['eventEdit'].helpers({
 });
 
 Template['eventEdit'].events({
+    "click #download-csv": function(event) {
+      var nameFile = 'event_users.csv';
+      Meteor.call('download_users_by_id', this.users,function(err, fileContent) {
+        if(fileContent){
+          var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
+          saveAs(blob, nameFile);
+        }
+      });
+    }
 });
 
 Template['eventEdit'].onRendered(function(){
