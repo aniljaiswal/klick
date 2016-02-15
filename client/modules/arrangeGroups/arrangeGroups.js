@@ -58,7 +58,16 @@ Template['arrangeGroups'].events({
     Events.update(this._id, {$set: {groups: new_groups}});
     Session.set('new_groups',new_groups);
     Router.go('eventEdit', this);
-  }
+  },
+  'click .remove_user': function(event, template){
+    var this_event = Session.get('current_event');
+    Events.update(this_event._id,{
+      $pull: {users: this._id},
+    });
+    Meteor.users.update(this._id,{
+      $pull: {klicks: this_event._id},
+    })
+  },
 });
 
 Template['arrangeGroups'].onRendered(function(){
@@ -66,7 +75,7 @@ Template['arrangeGroups'].onRendered(function(){
     var rScore = Groups.getGroupDistanceFromIDs(group);
     Session.set((index+1).toString(), rScore);
   })
-
+  Session.set('current_event',this.data);
   var manualSort = !!this.data.manualSort;
   Session.set('new_groups',this.data.groups);
   var tables = document.getElementsByClassName('sortable-table');
