@@ -3,14 +3,14 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-less@2.7.5
-jquery
-underscore@1.0.9
-accounts-password@1.3.0
+less@2.7.6
+jquery@1.11.10
+underscore@1.0.10
+accounts-password@1.3.1
 aldeed:collection2
 iron:router
 raix:handlebar-helpers
-fastclick@1.0.12
+fastclick@1.0.13
 zimme:iron-router-active
 manuelschoebel:ms-seo
 natestrauser:animate-css
@@ -23,7 +23,7 @@ aldeed:autoform
 tsega:bootstrap3-datetimepicker@=3.1.3_3
 mrt:moment-timezone
 aldeed:autoform-bs-datetimepicker
-accounts-facebook@1.0.10
+accounts-facebook@1.0.11
 stevezhu:fbgraph
 jparker:gravatar
 khamoud:linkedin-api
@@ -36,13 +36,13 @@ meteorhacks:npm
 twbs:bootstrap
 flyandi:reactive-countdown
 mystor:device-detection
-accounts-google@1.0.10
+accounts-google@1.0.11
 vazco:universe-autoform-select
 comerc:bs-typeahead
 comerc:autoform-typeahead
 yogiben:autoform-modals
 aslagle:reactive-table
-service-configuration@1.0.10
+service-configuration@1.0.11
 aldeed:delete-button
 aldeed:autoform-bs-datepicker
 rajit:bootstrap3-datepicker
@@ -54,18 +54,18 @@ lfergon:exportcsv
 emdagon:bootstrap-multiselect
 zimme:select2-bootstrap3-css
 aldeed:autoform-select2
-meteor-base
-mobile-experience
-mongo
+meteor-base@1.0.4
+mobile-experience@1.0.4
+mongo@1.1.14
 blaze-html-templates
-session
-tracker
-logging
-reload
-random
-ejson
+session@1.1.7
+tracker@1.1.1
+logging@1.1.16
+reload@1.1.11
+random@1.0.10
+ejson@1.0.13
 spacebars
-check
-standard-minifier-css
-standard-minifier-js
-shell-server
+check@1.2.4
+standard-minifier-css@1.3.2
+standard-minifier-js@1.2.1
+shell-server@0.2.1
