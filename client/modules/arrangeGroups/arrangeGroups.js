@@ -28,7 +28,7 @@ Template['arrangeGroups'].helpers({
   group_emails: function(group) {
     return group.people.map(function(user){
       return user.emails[0].address;
-    })
+    }).join(';')
   }
 });
 
